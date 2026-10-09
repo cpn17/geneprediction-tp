@@ -93,8 +93,11 @@ def find_stop(stop_regex: Pattern, sequence: str, start: int) -> Union[int, None
     :param start: (int) Start position of the research
     :return: (int) If exist, position of the stop codon. Otherwise None. 
     """
-    pass
-
+    for position in range(start+3, len(sequence)-2, 3):
+        match = stop_regex.match(sequence, position)
+        if match:
+            return match.start()
+    return None
 
 def has_shine_dalgarno(shine_regex: Pattern, sequence: str, start: int, max_shine_dalgarno_distance: int) -> bool:
     """Find a shine dalgarno motif before the start codon
